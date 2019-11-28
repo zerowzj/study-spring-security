@@ -1,13 +1,13 @@
 package study.spring.security.auth;
 
-import study.spring.security.dao.popedomfunction.PopedomFunctionDao;
-import study.spring.security.dao.popedomfunction.PopedomFunctionEO;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.test.web.client.RequestMatcher;
+import study.spring.security.dao.popedomfunction.PopedomFunctionDao;
+import study.spring.security.dao.popedomfunction.PopedomFunctionEO;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +22,7 @@ import java.util.List;
 public class FunctionMapFactoryBean implements FactoryBean<LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>> {
 
     @Autowired
-    private PopedomFunctionDao popedomFunctionDao = null;
+    private PopedomFunctionDao popedomFunctionDao;
 
     @Override
     public LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> getObject() throws Exception {
@@ -31,7 +31,7 @@ public class FunctionMapFactoryBean implements FactoryBean<LinkedHashMap<Request
         //获取受保护功能列表
         List<PopedomFunctionEO> pfEOLt = popedomFunctionDao.getFunctionLt(null);
         //生成映射
-        AntPathRequestMatcher matcher = null;
+        AntPathRequestMatcher matcher;
         List<ConfigAttribute> configAttrLt = null;
         for (PopedomFunctionEO pfEO : pfEOLt) {
             //过滤掉1级
