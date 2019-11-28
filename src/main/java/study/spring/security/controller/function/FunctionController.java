@@ -1,4 +1,4 @@
-package study.spring.security.web.controller.function;
+package study.spring.security.controller.function;
 
 import study.spring.security.dao.popedomfunction.PopedomFunctionEO;
 import study.spring.security.service.function.FunctionService;

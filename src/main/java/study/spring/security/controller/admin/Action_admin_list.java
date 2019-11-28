@@ -1,4 +1,4 @@
-package study.spring.security.web.controller.admin;
+package study.spring.security.controller.admin;
 
 import study.spring.security.dao.useradmin.UserAdminEO;
 import study.spring.security.service.admin.AdminService;

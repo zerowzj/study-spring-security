@@ -1,4 +1,4 @@
-package study.spring.security.web.controller.admin;
+package study.spring.security.controller.admin;
 
 import study.spring.security.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;

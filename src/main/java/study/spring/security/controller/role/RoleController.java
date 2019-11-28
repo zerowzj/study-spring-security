@@ -1,4 +1,4 @@
-package study.spring.security.web.controller.role;
+package study.spring.security.controller.role;
 
 import study.spring.security.common.tree.JSTree;
 import study.spring.security.common.tree.ZTree;
