@@ -1,6 +1,5 @@
 package study.spring.security.auth.user;
 
-import study.spring.security.common.web.session.SessionUserInfo;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,28 +12,24 @@ import java.util.List;
  */
 public class CustomUserDetails implements UserDetails {
 
-    /** 登录名 */
+    /**
+     * 登录名
+     */
     private String loginName = null;
-    /** 登录密码 */
+    /**
+     * 登录密码
+     */
     private String loginPwd = null;
-    /** 授权 */
+    /**
+     * 授权
+     */
     private List<SimpleGrantedAuthority> grantedAuthLt = null;
 
-    /** 用户信息 */
-    private SessionUserInfo userInfo = null;
 
     public CustomUserDetails(String loginName, String loginPwd, List<SimpleGrantedAuthority> grantedAuthLt) {
         this.loginName = loginName;
         this.loginPwd = loginPwd;
         this.grantedAuthLt = grantedAuthLt;
-    }
-
-    public SessionUserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(SessionUserInfo userInfo) {
-        this.userInfo = userInfo;
     }
 
     @Override
