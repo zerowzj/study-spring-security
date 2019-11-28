@@ -7,31 +7,29 @@
             http://www.springframework.org/schema/security
             http://www.springframework.org/schema/security/spring-security.xsd">
     <!-- ==================== -->
-    <!--                认证及授权入口            -->
+    <!--（★）认证授权入口     -->
     <!-- ==================== -->
     <security:http entry-point-ref="loginEntryPoint">
         <security:intercept-url pattern="/login.jsp**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <security:intercept-url pattern="/static/**"   access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <security:intercept-url pattern="/**"          access="IS_AUTHENTICATED_FULLY"/>
+        <security:intercept-url pattern="/static/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/>
 
         <security:custom-filter ref="customLoginFilter" before="FORM_LOGIN_FILTER"/>
         <security:custom-filter ref="customLogoutFilter" before="LOGOUT_FILTER"/>
         <security:custom-filter ref="watchDogFilter" after="FORM_LOGIN_FILTER"/>
 
-        <security:custom-filter ref="customFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+        <security:custom-filter ref="customFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
         <security:access-denied-handler ref="accessDeniedHandler"/>
 
         <security:session-management invalid-session-url="/login.jsp?msg=session_invalid">
-            <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+            <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
         </security:session-management>
     </security:http>
     <!-- 登录入口 -->
     <bean id="loginEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
         <constructor-arg value="/login.jsp?msg=please_login"/>
     </bean>
-    <!-- ==================== -->
-    <!--               认证管理器                 -->
-    <!-- ==================== -->
+    <!-- 认证管理器 -->
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider ref="daoAuthenticationProvider"/>
     </security:authentication-manager>
@@ -46,7 +44,7 @@
         <property name="encodeHashAsBase64" value="true"/>
     </bean>
     <!-- ==================== -->
-    <!--      认证过滤器       -->
+    <!--（★）认证过滤器       -->
     <!-- ==================== -->
     <bean id="customLoginFilter" class="study.spring.security.auth.filter.CustomLoginFilter">
         <constructor-arg value=""/>
@@ -66,9 +64,9 @@
     <bean id="failureHandler" class="study.spring.security.auth.handler.LoginFailureHandler">
         <property name="defaultFailureUrl" value="/login.jsp?msg=login_failure"/>
     </bean>
-    <!-- ======================================== -->
-    <!--                  注销过滤器              -->
-    <!-- ======================================== -->
+    <!-- ==================== -->
+    <!--（★）注销过滤器       -->
+    <!-- ==================== -->
     <bean id="customLogoutFilter" class="study.spring.security.auth.filter.CustomLogoutFilter">
         <property name="filterProcessesUrl" value="/logout"/>
         <constructor-arg index="0" value="/login.jsp?msg=logout_success"/>
@@ -79,10 +77,11 @@
             </array>
         </constructor-arg>
     </bean>
-    <!-- ======================================== -->
-    <!--                授权过滤器                -->
-    <!-- ======================================== -->
-    <bean id="customFilterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+    <!-- ==================== -->
+    <!--（★）授权过滤器       -->
+    <!-- ==================== -->
+    <bean id="customFilterSecurityInterceptor"
+          class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
         <property name="securityMetadataSource" ref="defaultSecurityMetadataSource"/>
@@ -100,7 +99,8 @@
         <property name="rolePrefix" value=""/>
     </bean>
     <!-- 安全数据源 -->
-    <bean id="defaultSecurityMetadataSource" class="org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource">
+    <bean id="defaultSecurityMetadataSource"
+          class="org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource">
         <constructor-arg type="java.util.LinkedHashMap">
             <ref bean="functionMap"/>
         </constructor-arg>
@@ -111,10 +111,9 @@
     <bean id="accessDeniedHandler" class="study.spring.security.auth.handler.CustomAccessDeniedHandler">
         <property name="errorPage" value="/accessDenied.jsp"/>
     </bean>
-
-    <!-- ======================================== -->
-    <!--                自定义过滤器              -->
-    <!-- ======================================== -->
+    <!-- ==================== -->
+    <!--（★）自定义过滤器     -->
+    <!-- ==================== -->
     <bean id="watchDogFilter" class="study.spring.security.auth.filter.WatchDogFilter">
         <property name="sessionKeyLt">
             <list>

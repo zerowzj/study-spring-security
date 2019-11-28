@@ -20,9 +20,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     protected static final Log logger = LogFactory.getLog(CustomAccessDeniedHandler.class);
 
-    //~ Instance fields ================================================================================================
-
     private String errorPage;
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
