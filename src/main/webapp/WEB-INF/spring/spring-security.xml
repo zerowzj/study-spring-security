@@ -13,14 +13,11 @@
         <security:intercept-url pattern="/login.jsp**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <security:intercept-url pattern="/static/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/>
-
         <security:custom-filter ref="customLoginFilter" before="FORM_LOGIN_FILTER"/>
         <security:custom-filter ref="customLogoutFilter" before="LOGOUT_FILTER"/>
         <security:custom-filter ref="watchDogFilter" after="FORM_LOGIN_FILTER"/>
-
         <security:custom-filter ref="customFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
         <security:access-denied-handler ref="accessDeniedHandler"/>
-
         <security:session-management invalid-session-url="/login.jsp?msg=session_invalid">
             <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
         </security:session-management>
