@@ -1,10 +1,5 @@
-package study.spring.security.auth.user;
+package study.spring.security.auth.details;
 
-import study.spring.security.common.web.session.SessionUserInfo;
-import study.spring.security.dao.popedomfunction.PopedomFunctionDao;
-import study.spring.security.dao.popedomfunction.PopedomFunctionEO;
-import study.spring.security.dao.useradmin.UserAdminDao;
-import study.spring.security.dao.useradmin.UserAdminEO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +7,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import study.spring.security.dao.popedomfunction.PopedomFunctionDao;
+import study.spring.security.dao.popedomfunction.PopedomFunctionEO;
+import study.spring.security.dao.useradmin.UserAdminDao;
+import study.spring.security.dao.useradmin.UserAdminEO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
  */
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     @Autowired
     private UserAdminDao userAdminDao = null;
@@ -43,20 +42,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<PopedomFunctionEO> pfEOLt = popedomFunctionDao.getRoleFunctionLt(prId, null);
 
         //生成用户详情
-        CustomUserDetails userDetails = new CustomUserDetails(username, uaEO.getUaLoginPwd(), this.toGrantedAuthority(pfEOLt));
-
-        //设置SessionUserInfo
-        SessionUserInfo userInfo = new SessionUserInfo();
-        userInfo.setUbId(uaEO.getUaId());     //用户编号
-        userInfo.setUbName(uaEO.getUaName()); //用户姓名
-        userInfo.setUserFuncLt(pfEOLt);       //用户功能列表
-        userDetails.setUserInfo(userInfo);
+        CustomUserDetails userDetails = new CustomUserDetails(username, uaEO.getUaLoginPwd(), getGrantedLt(pfEOLt));
 
         //返回
         return userDetails;
     }
 
-    private List<SimpleGrantedAuthority> toGrantedAuthority(List<PopedomFunctionEO> pfEOLt) {
+    private List<SimpleGrantedAuthority> getGrantedLt(List<PopedomFunctionEO> pfEOLt) {
         List<SimpleGrantedAuthority> grantedLt = new ArrayList<>();
         SimpleGrantedAuthority granted = null;
         for (PopedomFunctionEO pfEO : pfEOLt) {

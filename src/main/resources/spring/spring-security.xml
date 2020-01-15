@@ -10,9 +10,9 @@
     <!--（★）认证授权入口     -->
     <!-- ==================== -->
     <security:http entry-point-ref="loginEntryPoint">
-        <security:intercept-url pattern="/login.jsp**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <security:intercept-url pattern="/static/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/>
+        <security:intercept-url pattern="/view" access="IS_AUTHENTICATED_FULLY"/>
         <security:custom-filter ref="customLoginFilter" before="FORM_LOGIN_FILTER"/>
         <security:custom-filter ref="customLogoutFilter" before="LOGOUT_FILTER"/>
         <security:custom-filter ref="watchDogFilter" after="FORM_LOGIN_FILTER"/>
@@ -36,7 +36,7 @@
         <property name="userDetailsService" ref="userDetailsService"/>
         <property name="passwordEncoder" ref="md5PasswordEncoder"/>
     </bean>
-    <bean id="userDetailsService" class="study.spring.security.auth.user.CustomUserDetailsService"></bean>
+    <bean id="userDetailsService" class="study.spring.security.auth.details.CustomUserDetailsService"></bean>
     <bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
         <property name="encodeHashAsBase64" value="true"/>
     </bean>

@@ -1,4 +1,4 @@
-package study.spring.security.auth.user;
+package study.spring.security.auth.details;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,19 +12,12 @@ import java.util.List;
  */
 public class CustomUserDetails implements UserDetails {
 
-    /**
-     * 登录名
-     */
-    private String loginName = null;
-    /**
-     * 登录密码
-     */
-    private String loginPwd = null;
-    /**
-     * 授权
-     */
+    /* 登录名 */
+    private String loginName;
+    /* 登录密码 */
+    private String loginPwd;
+    /* 授权 */
     private List<SimpleGrantedAuthority> grantedAuthLt = null;
-
 
     public CustomUserDetails(String loginName, String loginPwd, List<SimpleGrantedAuthority> grantedAuthLt) {
         this.loginName = loginName;

@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-import study.spring.security.auth.user.CustomUserDetails;
+import study.spring.security.auth.details.CustomUserDetails;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
